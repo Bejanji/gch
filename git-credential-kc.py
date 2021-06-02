@@ -33,7 +33,8 @@ def store(x):
 	exit(0)
 
 def erase(x):
-	os.remove(store_dir)
+	if os.path.exists(store_dir):
+		os.remove(store_dir)
 	exit(0)
 
 for i in range(0, len(sys.argv), 1):
