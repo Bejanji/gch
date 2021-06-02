@@ -3,12 +3,21 @@ import sys
 import os
 
 store_dir = '/etc/git.wowee'
-stdin_dir = '/etc/stdin.wowee'
+
+# Git, at least for get(x), sends stdin:
+#
+# protocol=https
+# host=github.com
+#
+# Therefore, we can separate logins, if
+# it were ever necessary. :^)
+# 
+# stdin is accessible through a for loop:
+# for x in sys.stdin...
+# which will continue until stdin is closed.
+# This is something git will do on its own.
 
 def get(x):
-	f = open(stdin_dir, 'w')
-	for x in sys.stdin:
-		f.write(x)
 	if os.path.exists(store_dir):
 		f = open(store_dir, 'r')
 		for x in f.readlines():
@@ -18,8 +27,6 @@ def get(x):
 def store(x):
 	f = open(store_dir, 'w')
 	for v in sys.stdin:
-		if v.strip() == '':
-			continue
 		f.write(v)
 	f.flush()
 	f.close()
