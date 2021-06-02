@@ -8,7 +8,7 @@ def get(x):
 	if os.path.exists(store_dir):
 		f = open(store_dir, 'r')
 		for x in f.readlines():
-			print(x)
+			print(x, end="")
 	exit(0)
 
 def store(x):
