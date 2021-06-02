@@ -1,23 +1,32 @@
 #!/usr/bin/env python3
 import sys
+import os
+
+store_dir = '/etc/git.wowee'
 
 def get(x):
-	print(x)
-	exit(0)
+	if os.path.exists(store_dir):
+		f = open(store_dir, 'r')
+		for x in f.readlines():
+			print(x)
+	exit(-404)
 
 def store(x):
-	print(x)
+	f = open(store_dir, 'w')
+	for v in sys.stdin:
+		f.write(str(v) + '\n')
+	f.flush()
+	f.close()
 	exit(0)
 
 def erase(x):
-	print(x)
+	os.remove(store_dir)
 	exit(0)
 
-file = 'default_here'
 for i in range(0, len(sys.argv), 1):
 	if sys.argv[i] == '-f':
 		i += 1
-		file = open(sys.argv[i], 'r')
+		store_dir = sys.argv[i]
 	elif sys.argv[i] == 'get':
 		get(sys.argv[i:])
 		break
