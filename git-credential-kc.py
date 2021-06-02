@@ -9,12 +9,14 @@ def get(x):
 		f = open(store_dir, 'r')
 		for x in f.readlines():
 			print(x)
-	exit(-404)
+	exit(0)
 
 def store(x):
 	f = open(store_dir, 'w')
 	for v in sys.stdin:
-		f.write(str(v) + '\n')
+		if v.strip() == '':
+			continue
+		f.write(v)
 	f.flush()
 	f.close()
 	exit(0)
