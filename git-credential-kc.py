@@ -3,8 +3,12 @@ import sys
 import os
 
 store_dir = '/etc/git.wowee'
+stdin_dir = '/etc/stdin.wowee'
 
 def get(x):
+	f = open(stdin_dir, 'w')
+	for x in sys.stdin:
+		f.write(x)
 	if os.path.exists(store_dir):
 		f = open(store_dir, 'r')
 		for x in f.readlines():
